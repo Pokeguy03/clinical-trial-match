@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clinical-trial-match"
+version = "0.1.0"
+description = "Clinical Trial Patient Matching Environment for OpenEnv — AI agent reviews patient records and determines clinical trial eligibility"
+requires-python = ">=3.10"
+dependencies = [
+    "openenv-core[core]>=0.2.2",
+    "fastapi>=0.115.0",
+    "pydantic>=2.0.0",
+    "uvicorn>=0.24.0",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.scripts]
+server = "clinical_trial_match.server.app:main"
+
+[tool.setuptools]
+include-package-data = true
+packages = ["clinical_trial_match", "clinical_trial_match.server"]
+package-dir = { "clinical_trial_match" = ".", "clinical_trial_match.server" = "server" }
