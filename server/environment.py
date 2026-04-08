@@ -212,7 +212,7 @@ class ClinicalTrialMatchEnvironment(MCPEnvironment):
                 "matches_remaining": total - submitted,
                 "cumulative_reward": round(env._cumulative_reward, 3),
                 "max_possible_reward": round(max_reward, 3),
-                "normalized_score": round(min(max(norm_score, 0.0), 1.0), 3),
+                "normalized_score": round(max(min(norm_score, 1 - 1e-9), 1e-9), 3),
                 "patients_reviewed": sorted(list(env._patients_reviewed)),
                 "trials_reviewed": sorted(list(env._trials_reviewed)),
                 "done": env._done,
@@ -381,7 +381,7 @@ class ClinicalTrialMatchEnvironment(MCPEnvironment):
                 self._cumulative_reward / max_reward if max_reward > 0 else 0.0
             )
             obs.done = True
-            obs.reward = round(min(max(norm_score, 0.0), 1.0), 4)
+            obs.reward = round(max(min(norm_score, 1 - 1e-9), 1e-9), 4)
             if obs.metadata is None:
                 obs.metadata = {}
             obs.metadata["final_score"] = round(norm_score, 4)
@@ -418,7 +418,7 @@ class ClinicalTrialMatchEnvironment(MCPEnvironment):
                 self._cumulative_reward / max_reward if max_reward > 0 else 0.0
             )
             obs.done = True
-            obs.reward = round(min(max(norm_score, 0.0), 1.0), 4)
+            obs.reward = round(max(min(norm_score, 1 - 1e-9), 1e-9), 4)
             if obs.metadata is None:
                 obs.metadata = {}
             obs.metadata["final_score"] = round(norm_score, 4)

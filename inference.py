@@ -359,7 +359,7 @@ async def run_task(task_name: str) -> dict:
 
             # Final score
             score = rewards[-1] if rewards else 0.0
-            score = min(max(score, 0.0), 1.0)
+            score = max(min(score, 1 - 1e-9), 1e-9)
             success = score >= SUCCESS_SCORE_THRESHOLD
 
     except Exception as e:
